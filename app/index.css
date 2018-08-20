@@ -21,6 +21,8 @@ a {
     margin:0px auto;
 }
 
+/*====== Popular ==========*/
+
 .languages {
     display: flex;
     justify-content: center;
@@ -65,6 +67,9 @@ a {
     max-width:100%;
 }
 
+/*====== menu top ==========*/
+
+
 .active {
     font-weight:bold;
 }
@@ -73,6 +78,8 @@ a {
     margin-right: 15px;
     display: inline-block;
 }
+
+/*====== Home ==========*/
 
 .home-container {
     display: flex;
@@ -86,4 +93,109 @@ a {
     text-align: center;
     color: #ff5252;
     background: #fff;
+}
+
+/*====== Battle ==========*/
+
+.battle-container {
+    text-align:center;
+}
+
+.battle-container .row {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    width:100%;
+}
+
+.battle-container .row form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.battle-container .row form .header {
+    margin-bottom:20px;
+}
+
+.battle-container .row form label {
+    font-size:36px;
+    text-align: center;
+    margin-bottom:10px;
+    font-weight: 100;
+}
+
+.battle-container .row form input[type="text"] {
+    padding:10px;
+    width:240px;
+    box-sizing: border-box;
+    color: #666;
+    margin-bottom:10px;
+    border: 1px solid #999;
+    font-size: 12px;
+}
+
+.battle-container .row form button.btn {
+    margin-top:15px;
+    padding:12px 10px;
+    width:240px;
+    box-sizing: border-box;
+    color: #d0021b;
+    margin-bottom:10px;
+    background: #fff;
+    border:1px solid #d0021b;
+    border-radius: 25px 25px 25px 25px;
+    font-size:12px;
+    font-weight:lighter;
+    letter-spacing: 2px;
+}
+
+
+ .playerPreview {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin:20px;
+    align-items: center;
+}
+
+.playerPreview .avatar {
+    width:200px;
+    height: 200px;
+    border-radius: 50%; 
+}
+
+/* Reset button */
+
+.playerPreview .reset {
+    border          : none; 
+    background      :transparent;
+    color           : #d0021b;
+    display         : block;
+    width           :100%;
+    text-align      :center;
+} 
+
+.reset:hover {
+    cursor: pointer;
+}
+
+
+.battle-btn {
+    display: inline-block;
+    min-width:180px;
+    margin-top:15px;
+    padding:12px 10px;
+    width:240px;
+    box-sizing: border-box;
+    color: #d0021b;
+    margin-bottom:10px;
+    background: #fff;
+    border:1px solid #d0021b;
+    border-radius: 25px 25px 25px 25px;
+    font-size:12px;
+    font-weight:lighter;
+    letter-spacing: 2px;
 }

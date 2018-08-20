@@ -39,9 +39,9 @@ function RepoGrid(props) {
 	)
 }
 
-// RepoGrid.propTypes = {
-// 	repos: PropTypes.array.isRequired
-// }
+RepoGrid.propTypes = {
+	repos: PropTypes.array.isRequired
+}
 //====== Repo Functional Component
 
 function Repo(props) {
@@ -64,10 +64,10 @@ function Repo(props) {
 
 //====== Proptypes for languageList
 
-// LanguagesList.propTypes = {
-// 	selectedLanguage: Proptypes.string.isRequired,
-// 	onSelect: Proptypes.func.isRequired
-// }
+LanguagesList.propTypes = {
+	selectedLanguage: PropTypes.string.isRequired,
+	onSelect: PropTypes.func.isRequired
+}
 
 //====== Popular Component
 
