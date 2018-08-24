@@ -26,7 +26,7 @@ function calculateScore(profile, repos){
   const followers = profile.followers;
   const totalStars = getStartCount(repos);
 
-  return (followers * 3) + totalStarts;
+  return (followers * 3) + totalStars + repos.data.length;
 }
 
 function handleError(error){
@@ -55,12 +55,12 @@ function sortPlayers(players){
 }
 
 module.exports = {
-  battle: function(players){
+  battle: function (players) {
     return axios.all(players.map(getUserData))
       .then(sortPlayers)
       .catch(handleError)
   },
-  fetchPopularRepos : function(language) {
+  fetchPopularRepos : function (language) {
     const encodeURI = window.encodeURI('https://api.github.com/search/repositories?q=starts>1+language:' + language + '&sort=starts&order=desc&type0Repositories');
     return axios.get(encodeURI)
       .then((res)=> {
