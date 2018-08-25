@@ -5,20 +5,19 @@ const Loading = require('./loading')
 
 //====== LanguageList Functional Component
 
-function LanguagesList(props) {
+function LanguagesList({selectedLanguage, onSelect}) {
 	const languages = ['All', 'Javascript', 'Ruby', 'Java', 'Css', 'Python']
 	return(
 		<ul className="languages">
 			{
-				languages.map((lang)=>{
-					return (
+				languages.map((lang)=> (
 						<li 
-						style={lang === props.selectedLanguage? {color: '#d0021b'}: null}
+						style={lang === selectedLanguage? {color: '#d0021b'}: null}
 						className="lang-item" 
-						onClick={ props.onSelect.bind(null, lang)} 
+						onClick={ ()=> onSelect(lang)} 
 						key={lang}> { lang } </li>
 					)
-				})
+				)
 			}
 		</ul>
 	) 
@@ -26,13 +25,13 @@ function LanguagesList(props) {
 
 //====== RepoGrid Functional Component
 
-function RepoGrid(props) {
+function RepoGrid({repos}) {
 	return (
 		<ul className="popular-list">
 			{ 
-				props.repos.map((repo, i)=>{
+				repos.map((repo, i)=>{
 					return (
-						<Repo key={repo.name} index={i}repo={repo} />
+						<Repo key={repo.name} index={i} repo={repo} />
 					)
 				})
 			}
@@ -45,19 +44,20 @@ RepoGrid.propTypes = {
 }
 //====== Repo Functional Component
 
-function Repo(props) {
+function Repo({repo, index}) {
+	const { name, stargazerz_count, html_url, owner} = repo;
 	return (
 		<li className="popular-item">
 			<ul className="space-list-items">
 				<li>
 					<img className="avatar"
-						src={ props.repo.owner.avatar_url }
-						alt={ 'Avatar for ' + props.repo.owner.login} 
+						src={ owner.avatar_url }
+						alt={ 'Avatar for ' + owner.login} 
 					/>
 				</li>
-				<li># {props.index + 1 } <a href={ props.repo.html_url}>{props.repo.name}</a></li>
-				<li>@{props.repo.owner.login}</li>
-				<li>{props.repo.stargazerz_count} starts</li>
+				<li># { index + 1 } <a href={ html_url}>{ name}</a></li>
+				<li>@{ owner.login}</li>
+				<li>{ stargazerz_count} starts</li>
 			</ul>
 		</li>
 	)
@@ -87,32 +87,27 @@ class Popular extends React.Component {
 	}
 
 	updateLanguage(lang){
-		this.setState(()=>{
-			return {
+		this.setState(()=> ({
 				selectedLanguage: lang,
 				repos : null
-			}
-		})
-		api.fetchPopularRepos(lang)
-			.then((repos)=> {
-				this.setState(function(){
-					return {
-						repos: repos
-					}
-				}.bind(this))
 			})
+		)
+		api.fetchPopularRepos(lang)
+			.then((repos)=> this.setState(()=> ({ repos: repos })))
 	}
 
 	render(){
+		const { selectedLanguage, repos } = this.state;
+
 		return(
 			<div>
 				<LanguagesList 
-					selectedLanguage={this.state.selectedLanguage}
+					selectedLanguage={ selectedLanguage}
 					onSelect={this.updateLanguage}
 				/>
-				{!this.state.repos?
- 						<Loading text={"loading " + this.state.selectedLanguage}/>
- 					: <RepoGrid repos={this.state.repos} />
+				{!repos?
+ 					<Loading text={`loading ${selectedLanguage}`}/>
+ 					: <RepoGrid repos={ repos } />
 				}
 			</div>
 		);

@@ -7,8 +7,7 @@ const PlayerPreview = require('./playerPreview');
 const Loading = require('./loading')
 
 
-function PlayerInformation(props){
-  const profile = props.profile;
+function PlayerInformation({profile}){
   return(
     <div className="info">
       <p><strong>Name:</strong> { profile.name}</p>
@@ -21,16 +20,16 @@ function PlayerInformation(props){
   )
 }
 
-function Player(props){
+function Player({label, score, profile}){
   return(
     <div className="result">
-      <h2 className="label">{ props.label }</h2>
-      <h3 className="score" style={{textAlign: "center"}}>{ props.score}</h3>
+      <h2 className="label">{ label }</h2>
+      <h3 className="score" style={{textAlign: "center"}}>{ score}</h3>
       <PlayerPreview
-        username={props.profile.login}
-        avatar={props.profile.avatar_url}
+        username={ profile.login}
+        avatar={profile.avatar_url}
         >
-        <PlayerInformation profile={props.profile}/>
+        <PlayerInformation profile={profile}/>
       </PlayerPreview>
     </div>
   )
@@ -56,34 +55,27 @@ class Results extends React.Component {
   }
 
   componentDidMount() {
-    const players = queryString.parse(this.props.location.search);
+    const { playerOneName, playerTwoName } = queryString.parse(this.props.location.search);
     api.battle([
-      players.playerOneName,
-      players.playerTwoName,
-    ]).then(function (results){
-      if(!results){
-        return this.setState(function(){
-          return {
+      playerOneName,
+      playerTwoName,
+    ]).then(([winner, loser])=>(
+      (!winner || !loser)?
+        this.setState(()=>({
             error: 'Looks like there was an error. Check that the users exist on Github',
             loading: false
-          }
-        })
-      } else {
-        return this.setState(function() {
-          return {
-            winner: results[0],
-            loser: results[1],
+          })
+        )
+        : this.setState(()=>({
+            winner,
+            loser,
             loading: false
-          }
-        })
-      }
-    }.bind(this))
+          })
+        )
+    ))
   }
   render() {
-    const error = this.state.error;
-    const winner = this.state.winner;
-    const loser = this.state.loser;
-    const loading = this.state.loading;
+    const { error, winner, loser, loading } = this.state;
 
     if(loading){ return <Loading text="Waiting for Results..."/>}
     if(error)  return <div><p> {error} </p> <Link to="/battle">Reset</Link></div>
