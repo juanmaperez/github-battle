@@ -10,12 +10,17 @@ const styles = {
 };
 
 class Loading extends React.Component {
-  constructor(props){
-    super(props)
 
-    this.state = {
-      text: props.text,
-    }
+  static defaultProps = {
+    text: 'Still waiting' 
+  }
+  
+  static propTypes = {
+    text: PropTypes.string.isRequired
+  }
+
+  state = {
+    text: this.props.text,
   }
 
   componentDidMount() {
@@ -41,12 +46,6 @@ class Loading extends React.Component {
   }
 }
 
-Loading.defaultProps = {
-  text: 'Still waiting' 
-}
 
-Loading.propTypes = {
-  text: PropTypes.string.isRequired
-}
 
 export default Loading;
