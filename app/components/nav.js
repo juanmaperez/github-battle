@@ -1,8 +1,9 @@
-const React = require('react');
-const Link = require('react-router-dom').Link; // we are not using this
-const NavLink = require('react-router-dom').NavLink; // It's the same that link but add a class when the route matches
 
-function Nav () {
+import React from 'react';
+import { NavLink ,Link} from 'react-router-dom'; // we are not using this
+//NavLink It's the same that link but add a class when the route matches
+
+export default function Nav () {
   return (
     <ul className="nav">
       <li>
@@ -17,4 +18,3 @@ function Nav () {
     </ul>
   )
 }
-module.exports = Nav

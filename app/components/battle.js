@@ -1,8 +1,8 @@
-const React = require('react');
-const PropTypes = require('prop-types');
-const Link = require('react-router-dom').Link;
-const PlayerPreview = require('./playerPreview');
-const Loading = require('./loading')
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import PlayerPreview from './playerPreview';
+import Loading from './loading'
 
 class PlayerInput extends React.Component {
   constructor(props){
@@ -159,4 +159,4 @@ class Battle extends React.Component {
   }
 }
 
-module.exports = Battle;
+export default Battle;

@@ -1,13 +1,13 @@
-const React = require('react');
-const queryString = require('query-string');
-const api = require('./../utils/api');
-const Link = require('react-router').Link
-const PropTypes = require('prop-types');
-const PlayerPreview = require('./playerPreview');
-const Loading = require('./loading')
+import React from 'react';
+import PropTypes from 'prop-types';
+import queryString from 'query-string';
+import api from './../utils/api';
+import Link from 'react-router';
+import PlayerPreview from './playerPreview';
+import Loading from './loading';
 
 
-function PlayerInformation({profile}){
+export function PlayerInformation({profile}){
   return(
     <div className="info">
       <p><strong>Name:</strong> { profile.name}</p>
@@ -20,7 +20,7 @@ function PlayerInformation({profile}){
   )
 }
 
-function Player({label, score, profile}){
+export function Player({label, score, profile}){
   return(
     <div className="result">
       <h2 className="label">{ label }</h2>
@@ -99,4 +99,4 @@ class Results extends React.Component {
   }
 }
 
-module.exports = Results;
+export default Results;

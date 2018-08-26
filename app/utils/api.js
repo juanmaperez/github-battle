@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const id = 'YOUR_CLIENT_ID';
 const secret = 'YOUR_SECRET_ID';
@@ -41,7 +41,7 @@ function sortPlayers(players){
   return players.sort((a, b)=> b.score - a.score)
 }
 
-module.exports = {
+const api = {
   battle (players) {
     return Promise.all(players.map(getUserData))
       .then(sortPlayers)
@@ -52,3 +52,5 @@ module.exports = {
     return axios.get(encodeURI).then(({data})=> data.items)
   }
 }
+
+export default api;

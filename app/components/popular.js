@@ -1,11 +1,11 @@
-const React = require('react');
-const PropTypes = require('prop-types');
-const api = require('../utils/api');
-const Loading = require('./loading')
+import React from 'react';
+import PropTypes from 'prop-types';
+import api from './../utils/api';
+import Loading from './loading'
 
 //====== LanguageList Functional Component
 
-function LanguagesList({selectedLanguage, onSelect}) {
+export function LanguagesList({selectedLanguage, onSelect}) {
 	const languages = ['All', 'Javascript', 'Ruby', 'Java', 'Css', 'Python']
 	return(
 		<ul className="languages">
@@ -25,7 +25,7 @@ function LanguagesList({selectedLanguage, onSelect}) {
 
 //====== RepoGrid Functional Component
 
-function RepoGrid({repos}) {
+export function RepoGrid({repos}) {
 	return (
 		<ul className="popular-list">
 			{ 
@@ -44,7 +44,7 @@ RepoGrid.propTypes = {
 }
 //====== Repo Functional Component
 
-function Repo({repo, index}) {
+export function Repo({repo, index}) {
 	const { name, stargazerz_count, html_url, owner} = repo;
 	return (
 		<li className="popular-item">
@@ -114,4 +114,4 @@ class Popular extends React.Component {
 	}
 }
 
-module.exports = Popular;
+export default Popular;

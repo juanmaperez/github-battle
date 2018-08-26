@@ -1,8 +1,8 @@
-const React = require('react');
-const ReactDom = require('react-dom');
-require('./index.css');
+import React from 'react';
+import ReactDom from 'react-dom';
+import './index.css';
 
-const App = require('./components/app');
+import App from './components/app';
 // state
 // lifecycle event
 // UI
