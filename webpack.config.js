@@ -3,7 +3,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 
 var config = {
-  entry: ['babel-polyfill', './app/index.js'],
+  entry: ['babel-polyfill', 'whatwf-fetch',  './app/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index_bundle.js',
@@ -11,7 +11,7 @@ var config = {
   },
   module: {
     rules: [
-      { test: /\.(js)$/, use: 'babel-loader' },
+      { test: /\.(js)$/, use: 'babel-loader'},
       { test: /\.css$/, use: [ 'style-loader', 'css-loader' ]}
     ]
   },
