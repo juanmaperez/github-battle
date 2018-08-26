@@ -51,26 +51,27 @@ class Results extends React.Component {
     loading: true
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { playerOneName, playerTwoName } = queryString.parse(this.props.location.search);
-    api.battle([
+    const [winner, loser ] = await api.battle([
       playerOneName,
       playerTwoName,
-    ]).then(([winner, loser])=>(
-      (!winner || !loser)?
-        this.setState(()=>({
-            error: 'Looks like there was an error. Check that the users exist on Github',
-            loading: false
-          })
-        )
-        : this.setState(()=>({
-            winner,
-            loser,
-            loading: false
-          })
-        )
-    ))
+    ]);
+   
+    (!winner || !loser) ? 
+    this.setState(()=>({
+          error: 'Looks like there was an error. Check that the users exist on Github',
+          loading: false
+        })
+      )
+    : this.setState(()=>({
+          winner,
+          loser,
+          loading: false
+        })
+      )
   }
+
   render() {
     const { error, winner, loser, loading } = this.state;
 

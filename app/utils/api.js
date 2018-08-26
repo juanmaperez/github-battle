@@ -4,9 +4,9 @@ const id = 'YOUR_CLIENT_ID';
 const secret = 'YOUR_SECRET_ID';
 const params = `?client_id=${id}&client_secret=${secret}`;
 
-function getProfile(username){
-  return axios.get(`https://api.github.com/users/${username}${params}`)
-    .then(({data})=> data )
+async function getProfile(username){
+  const profile = await axios.get(`https://api.github.com/users/${username}${params}`)
+  return profile.data;
 }
 
 function getRepos(username) {
@@ -26,15 +26,15 @@ function handleError(error){
   return null;
 }
 
-function getUserData(player){
-  return Promise.all([
+async function getUserData(player){
+  const [profile, repos] = await Promise.all([
     getProfile(player),
     getRepos(player)
-  ]).then(([profile, repos])=>({
-      profile,
-      score: calculateScore(profile, repos)
-    })
-  )
+  ])
+  return {
+    profile,
+    score: calculateScore(profile, repos)
+  }
 }
 
 function sortPlayers(players){
@@ -42,14 +42,19 @@ function sortPlayers(players){
 }
 
 const api = {
-  battle (players) {
-    return Promise.all(players.map(getUserData))
-      .then(sortPlayers)
+  async battle (players) {
+    const results = await Promise.all(players.map(getUserData))
       .catch(handleError)
+    
+    return results === null
+    ? results
+    : sortPlayers(results)
+
   },
-  fetchPopularRepos (language) {
+  async fetchPopularRepos (language) {
     const encodeURI = window.encodeURI(`https://api.github.com/search/repositories?q=starts>1+language:${language}&sort=starts&order=desc&type0Repositories`);
-    return axios.get(encodeURI).then(({data})=> data.items)
+    const { data } = await axios.get(encodeURI)
+    return data.items;
   }
 }
 
